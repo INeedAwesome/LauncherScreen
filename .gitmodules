@@ -1,0 +1,3 @@
+[submodule "LauncherScreen/vendor/GLFW"]
+	path = LauncherScreen/vendor/GLFW
+	url = https://github.com/INeedAwesome/glfw

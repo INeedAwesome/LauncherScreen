@@ -5,6 +5,11 @@ workspace "LauncherScreen"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+IncludeDir = {}
+IncludeDir["GLFW"] = "$(SolutionDir)LauncherScreen\\vendor\\GLFW\\include\\"
+
+include "LauncherScreen/vendor/GLFW"
+
 project "LauncherScreen"
     location "LauncherScreen"
     kind "StaticLib"
@@ -26,7 +31,14 @@ project "LauncherScreen"
 
     includedirs 
     {
-        "$(ProjectDir)src\\"
+        "$(ProjectDir)src\\",
+        "%{IncludeDir.GLFW}"
+    }
+
+    links 
+    {
+        "GLFW",
+        "opengl32.lib"
     }
 
     filter "system:windows"

@@ -1,6 +1,8 @@
 #pragma once
 #include "lascpch.h"
 
+#include "GLFW/glfw3.h"
+
 namespace LASC {
 
 	struct WindowProps
@@ -30,7 +32,7 @@ namespace LASC {
 		void CenterWindow(); 
 
 	private: 
-		//GLFWwindow* m_Window;
+		GLFWwindow* m_Window = nullptr;
 		
 		WindowProps m_WindowProps;
 
