@@ -2,22 +2,9 @@
 #include "lascpch.h"
 
 #include "GLFW/glfw3.h"
+#include "GLFW/glfw3native.h"
 
 namespace LASC {
-
-	struct WindowProps
-	{
-		std::string Title;
-		unsigned int Width;
-		unsigned int Height;
-
-		WindowProps(const std::string& title = "Launcher",
-			unsigned int width = 550,
-			unsigned int height = 300)
-			: Title(title), Width(width), Height(height)
-		{
-		}
-	};
 
 	class Window
 	{
@@ -33,13 +20,12 @@ namespace LASC {
 
 	private: 
 		GLFWwindow* m_Window = nullptr;
+
+		uint32_t m_Width = 550;
+		uint32_t m_Height = 300;
+
+		DWORD Style = WS_POPUP | WS_VISIBLE; //(border and everything)WS_OVERLAPPEDWINDOW | WS_VISIBLE / (no nothing)WS_POPUP | WS_VISIBLE
+		bool m_ShouldClose = false;
 		
-		WindowProps m_WindowProps;
-
-		bool m_shouldClose = false;
-
-		uint32_t m_width = 550;
-		uint32_t m_height = 300;
-	
 	};
 }
