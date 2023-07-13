@@ -6,7 +6,7 @@ workspace "LauncherScreen"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
-IncludeDir["GLFW"] = "$(SolutionDir)LauncherScreen\\vendor\\GLFW\\include\\"
+IncludeDir["GLFW"] = "vendor/GLFW/include/"
 
 include "LauncherScreen/vendor/GLFW"
 
@@ -31,8 +31,8 @@ project "LauncherScreen"
 
     includedirs 
     {
-        "$(ProjectDir)src\\",
-        "%{IncludeDir.GLFW}"
+        "LauncherScreen/src/",
+        "LauncherScreen/%{IncludeDir.GLFW}/"
     }
 
     links 
@@ -75,7 +75,8 @@ project "Sandbox"
 
     includedirs 
     {
-        "LauncherScreen/src"
+        "LauncherScreen/src",
+        "LauncherScreen/vendor/GLFW/include"
     }
 
     links 
