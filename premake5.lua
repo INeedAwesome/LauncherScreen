@@ -8,9 +8,11 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "vendor/GLFW/include/"
 IncludeDir["ImGui"] = "vendor/imgui/"
+IncludeDir["Glad"] = "vendor/glad/include"
 
 include "LauncherScreen/vendor/GLFW"
 include "LauncherScreen/vendor/imgui"
+include "LauncherScreen/vendor/glad"
 
 project "LauncherScreen"
     location "LauncherScreen"
@@ -35,12 +37,14 @@ project "LauncherScreen"
     {
         "LauncherScreen/src/",
         "LauncherScreen/%{IncludeDir.GLFW}/",
-        "LauncherScreen/%{IncludeDir.ImGui}/"
+        "LauncherScreen/%{IncludeDir.ImGui}/",
+        "LauncherScreen/%{IncludeDir.Glad}/"
     }
 
     links 
     {
         "ImGui",
+        "Glad",
         "GLFW",
         "opengl32.lib"
     }
@@ -82,6 +86,7 @@ project "Sandbox"
         "LauncherScreen/src",
         "LauncherScreen/vendor/GLFW/include",
         "LauncherScreen/vendor/imgui"
+        "LauncherScreen/vendor/glad/include"
     }
 
     links 
