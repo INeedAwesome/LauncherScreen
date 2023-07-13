@@ -1,3 +1,7 @@
 [submodule "LauncherScreen/vendor/GLFW"]
 	path = LauncherScreen/vendor/GLFW
 	url = https://github.com/INeedAwesome/glfw
+[submodule "LauncherScreen/vendor/imgui"]
+	path = LauncherScreen/vendor/imgui
+	url = https://github.com/INeedAwesome/imgui
+	branch = docking
