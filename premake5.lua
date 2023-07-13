@@ -85,7 +85,7 @@ project "Sandbox"
     {
         "LauncherScreen/src",
         "LauncherScreen/vendor/GLFW/include",
-        "LauncherScreen/vendor/imgui"
+        "LauncherScreen/vendor/imgui",
         "LauncherScreen/vendor/glad/include"
     }
 

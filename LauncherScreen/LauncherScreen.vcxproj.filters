@@ -6,12 +6,14 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Launcher.h" />
+    <ClInclude Include="src\Launcher\Options.h">
+      <Filter>Launcher</Filter>
+    </ClInclude>
     <ClInclude Include="src\Launcher\Window.h">
       <Filter>Launcher</Filter>
     </ClInclude>
     <ClInclude Include="src\lascpch.h" />
-    <ClInclude Include="src\Launcher.h" />
-    <ClInclude Include="src\Launcher\Options.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Launcher\Window.cpp">
