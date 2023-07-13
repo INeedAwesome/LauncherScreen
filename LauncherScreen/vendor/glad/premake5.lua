@@ -13,6 +13,11 @@ project "Glad"
         "include/KHR/khrplatform.h"
 	}
 
+    includedirs
+    {
+        "include"
+    }
+
 	filter "system:windows"
 		systemversion "latest"
 
