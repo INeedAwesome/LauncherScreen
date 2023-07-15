@@ -7,7 +7,5 @@ int main()
 	LASC::Window window;
 	window.Init();
 	window.Update();
-	window.Shutdown();
-
-	return 0;
+	LASC::LauncherOptions options = window.Shutdown();
 }
