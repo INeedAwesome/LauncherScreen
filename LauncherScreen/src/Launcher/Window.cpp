@@ -56,11 +56,25 @@ bool LASC::Window::Init(uint32_t width, uint32_t height)
 	ImGui::StyleColorsDark();
 	ImGuiStyle& style = ImGui::GetStyle();
 	style.WindowRounding = 0.0f;
-	style.Colors[ImGuiCol_WindowBg].x = 0.05f;
-	style.Colors[ImGuiCol_WindowBg].y = 0.05f;
-	style.Colors[ImGuiCol_WindowBg].z = 0.05f;
+	style.Colors[ImGuiCol_WindowBg].x = 10.0f / 255.0f;
+	style.Colors[ImGuiCol_WindowBg].y = 38.0f / 255.0f;
+	style.Colors[ImGuiCol_WindowBg].z = 71.0f / 255.0f;
 	style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+
+	style.Colors[ImGuiCol_Button].x = 20.0f / 255.0f;
+	style.Colors[ImGuiCol_Button].y = 66.0f / 255.0f;
+	style.Colors[ImGuiCol_Button].z = 114.0f / 255.0f;
+	style.Colors[ImGuiCol_Button].w = 1.0f;
+
+	style.Colors[ImGuiCol_ButtonHovered].x = 32.0f / 255.0f;
+	style.Colors[ImGuiCol_ButtonHovered].y = 82.0f / 255.0f;
+	style.Colors[ImGuiCol_ButtonHovered].z = 149.0f / 255.0f;
+	style.Colors[ImGuiCol_ButtonHovered].w = 1.0f;
 	
+	style.Colors[ImGuiCol_ButtonActive].x = 44.0f / 255.0f;
+	style.Colors[ImGuiCol_ButtonActive].y = 116.0f / 255.0f;
+	style.Colors[ImGuiCol_ButtonActive].z = 179.0f / 255.0f;
+	style.Colors[ImGuiCol_ButtonActive].w = 1.0f;
 
 	// Setup Platform/Renderer backends
 	ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
@@ -81,7 +95,7 @@ LASC::LauncherOptions LASC::Window::Shutdown()
 	return m_LauncherOptions;
 }
 
-void LASC::Window::Update()
+bool LASC::Window::Update()
 {
 	glClearColor(0.1f, 0.1f, 0.1f, 1);
 
@@ -97,73 +111,7 @@ void LASC::Window::Update()
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		bool open = true;
-		ImGui::Begin("Launcher", &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
-
-		ImVec2 pos = {0, 0};
-		ImGui::SetWindowPos("Launcher", pos);
-		ImVec2 size = { (float)m_Width, (float)m_Height };
-		ImGui::SetWindowSize("Launcher", size);
-
-#pragma region GRAPHICS
-
-		ImGui::Text("Graphics");
-				
-		static const char* current_item = LASC::WindowResolutions[1];
-
-		if (ImGui::BeginCombo(" dwd combo", current_item)) // The second parameter is the label previewed before opening the combo.
-		{
-			for (int n = 0; n < IM_ARRAYSIZE(LASC::WindowResolutions); n++)
-			{
-				bool is_selected = (current_item == LASC::WindowResolutions[n]); // You can store your selection however you want, outside or inside your objects
-				if (ImGui::Selectable(LASC::WindowResolutions[n], is_selected))
-					current_item = LASC::WindowResolutions[n];
-				if (is_selected)
-					ImGui::SetItemDefaultFocus();   // You may set the initial focus when opening the combo (scrolling + for keyboard navigation support)
-			}
-			ImGui::EndCombo();
-		}
-
-		ImGui::Checkbox("Fullscreen", &m_LauncherOptions.Fullscreen);
-
-		if (!m_LauncherOptions.Fullscreen)
-		{
-			if (current_item == LASC::WindowResolutions[0])
-			{
-				m_LauncherOptions.Width = 1280;
-				m_LauncherOptions.Height = 720;
-			}
-			else if (current_item == LASC::WindowResolutions[1])
-			{
-				m_LauncherOptions.Width = 1920;
-				m_LauncherOptions.Height = 1080;
-			}
-			else if (current_item == LASC::WindowResolutions[2])
-			{
-				m_LauncherOptions.Width = 2560;
-				m_LauncherOptions.Height = 1440;
-			}
-			else if (current_item == LASC::WindowResolutions[3])
-			{
-				m_LauncherOptions.Width = 3840;
-				m_LauncherOptions.Height = 2160;
-			}
-		}
-
-#pragma endregion
-		
-#pragma region EXIT BUTTONS
-
-		float px = m_Width / 2 - m_ButtonSize.x;
-		float py = m_Height - m_ButtonSize.y - m_Padding;
-		ImGui::SetCursorPos({ px , py });
-		ImGui::BeginGroup();
-		ImGui::Button("Play", m_ButtonSize);
-		ImGui::SameLine();
-		if (ImGui::Button("Quit", m_ButtonSize))
-			glfwSetWindowShouldClose(m_Window, true);
-		ImGui::EndGroup();
-
+		ImGuiRender();
 
 #pragma endregion
 
@@ -187,6 +135,8 @@ void LASC::Window::Update()
 
 
 	}
+
+	return m_UserWantsToCancel;
 }
 
 void LASC::Window::ApplyStyles()
@@ -212,4 +162,108 @@ void LASC::Window::CenterWindow()
 		return;
 
 	glfwSetWindowPos(m_Window, (desktop->width - m_Width) / 2, (desktop->height - m_Height) / 2);
+}
+
+void LASC::Window::ImGuiRender()
+{
+	bool open = true;
+	ImGui::Begin("Launcher", &open, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar);
+
+	ImVec2 pos = { 0, 0 };
+	ImGui::SetWindowPos("Launcher", pos);
+	ImVec2 size = { (float)m_Width, (float)m_Height };
+	ImGui::SetWindowSize("Launcher", size);
+
+#pragma region GRAPHICS
+	std::string graphicsText = "Graphics";
+	float graphicsTextWidth = ImGui::CalcTextSize(graphicsText.c_str()).x;
+	float graphicsTextHeight = ImGui::CalcTextSize(graphicsText.c_str()).y;
+	{
+		ImGui::SetCursorPosX((m_Width - graphicsTextWidth) / 2);
+		ImGui::Text(graphicsText.c_str());
+	}
+
+	static const char* current_item = LASC::WindowResolutions[1];
+
+
+	std::string resolutionText = "Resolution: ";
+	float resolutionTextWidth = ImGui::CalcTextSize(resolutionText.c_str()).x;
+	float comboWidth = 350.0f;
+	ImGui::SetCursorPosX(((m_Width - resolutionTextWidth) / 2) - comboWidth/2);
+	ImGui::SetCursorPosY(graphicsTextHeight + 40.0f);
+	{
+		ImGui::Text(resolutionText.c_str());
+		ImGui::SameLine();
+
+		//ImGui::SetCursorPosX((m_Width - comboWidth) / 2);
+		ImGui::SetNextItemWidth(comboWidth);
+
+		if (ImGui::BeginCombo("##combo", current_item)) // The second parameter is the label previewed before opening the combo.
+		{
+			for (int n = 0; n < IM_ARRAYSIZE(LASC::WindowResolutions); n++)
+			{
+				bool is_selected = (current_item == LASC::WindowResolutions[n]); // You can store your selection however you want, outside or inside your objects
+				if (ImGui::Selectable(LASC::WindowResolutions[n], is_selected))
+					current_item = LASC::WindowResolutions[n];
+				if (is_selected)
+					ImGui::SetItemDefaultFocus();   // You may set the initial focus when opening the combo (scrolling + for keyboard navigation support)
+			}
+			ImGui::EndCombo();
+		}
+	}
+
+	std::string fullscreenText = "Fullscreen: ";
+	float fullscreenTextWidth = ImGui::CalcTextSize(fullscreenText.c_str()).x;
+	float checkboxWidth = 28;
+	ImGui::SetCursorPosX(((m_Width - fullscreenTextWidth) / 2) - checkboxWidth);
+	{
+		ImGui::BeginGroup();
+		ImGui::Text(fullscreenText.c_str());
+		ImGui::SameLine();
+		ImGui::Checkbox("##fullscreen", &m_LauncherOptions.Fullscreen);
+		ImGui::EndGroup();
+	}
+
+	if (current_item == LASC::WindowResolutions[0])
+	{
+		m_LauncherOptions.Width = 1280;
+		m_LauncherOptions.Height = 720;
+	}
+	else if (current_item == LASC::WindowResolutions[1])
+	{
+		m_LauncherOptions.Width = 1920;
+		m_LauncherOptions.Height = 1080;
+	}
+	else if (current_item == LASC::WindowResolutions[2])
+	{
+		m_LauncherOptions.Width = 2560;
+		m_LauncherOptions.Height = 1440;
+	}
+	else if (current_item == LASC::WindowResolutions[3])
+	{
+		m_LauncherOptions.Width = 3840;
+		m_LauncherOptions.Height = 2160;
+	}
+
+#pragma endregion
+
+#pragma region EXIT BUTTONS
+
+	float px = m_Width / 2 - m_ButtonSize.x;
+	float py = m_Height - m_ButtonSize.y - m_Padding;
+	ImGui::SetCursorPos({ px , py });
+	ImGui::BeginGroup();
+	if (ImGui::Button("Play", m_ButtonSize)) 
+	{
+		glfwSetWindowShouldClose(m_Window, true);
+		m_UserWantsToCancel = false;
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("Cancel", m_ButtonSize)) 
+	{
+		glfwSetWindowShouldClose(m_Window, true);
+		m_UserWantsToCancel = true;
+	}
+	ImGui::EndGroup();
+
 }

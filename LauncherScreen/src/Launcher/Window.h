@@ -21,22 +21,29 @@ namespace LASC {
 
 		bool Init(uint32_t width = 550, uint32_t height = 300);
 		LASC::LauncherOptions Shutdown();
-		void Update();
+
+		/**
+		* Loops the entire launcher
+		* Returns true if user wants to quit application
+		*/
+		bool Update();
 
 	private:
 		void ApplyStyles();
 		void CenterWindow(); 
+		void ImGuiRender();
 
 	private: 
 		GLFWwindow* m_Window = nullptr;
 
 		uint32_t m_Width = 550;
 		uint32_t m_Height = 300;
-
-		DWORD Style = WS_POPUP | WS_VISIBLE; //(border and everything)WS_OVERLAPPEDWINDOW | WS_VISIBLE / (no nothing)WS_POPUP | WS_VISIBLE
 		bool m_ShouldClose = false;
+		bool m_UserWantsToCancel = false;
 		
-		// pass this out of here to the main application
+		DWORD Style = WS_POPUP | WS_VISIBLE; //(border and everything)WS_OVERLAPPEDWINDOW | WS_VISIBLE / (no nothing)WS_POPUP | WS_VISIBLE
+		
+		// pass this to the main application
 		LASC::LauncherOptions m_LauncherOptions { };
 
 	private: // imgui variables
