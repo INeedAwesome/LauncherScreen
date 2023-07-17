@@ -108,4 +108,5 @@ project "Sandbox"
 
     filter "configurations:Dist"
         defines "SB_DIST"
+        kind "WindowedApp"
         optimize "Speed"
