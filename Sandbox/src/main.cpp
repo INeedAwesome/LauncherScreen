@@ -8,4 +8,6 @@ int main()
 	window.Init();
 	window.Update();
 	LASC::LauncherOptions options = window.Shutdown();
+
+	return 0;
 }
