@@ -10,6 +10,7 @@ namespace LASC {
 
 	struct LauncherOptions
 	{
+		bool UserClosedApplication;
 		bool Fullscreen;
 		uint32_t Width;
 		uint32_t Height;

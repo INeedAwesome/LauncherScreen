@@ -21,12 +21,7 @@ namespace LASC {
 
 		bool Init(uint32_t width = 550, uint32_t height = 300);
 		LASC::LauncherOptions Shutdown();
-
-		/**
-		* Loops the entire launcher
-		* Returns true if user wants to quit application
-		*/
-		bool Update();
+		void Update();
 
 	private:
 		void ApplyStyles();
@@ -39,7 +34,6 @@ namespace LASC {
 		uint32_t m_Width = 550;
 		uint32_t m_Height = 300;
 		bool m_ShouldClose = false;
-		bool m_UserWantsToCancel = false;
 		
 		DWORD Style = WS_POPUP | WS_VISIBLE; //(border and everything)WS_OVERLAPPEDWINDOW | WS_VISIBLE / (no nothing)WS_POPUP | WS_VISIBLE
 		

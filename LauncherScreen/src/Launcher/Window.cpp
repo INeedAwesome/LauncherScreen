@@ -95,7 +95,7 @@ LASC::LauncherOptions LASC::Window::Shutdown()
 	return m_LauncherOptions;
 }
 
-bool LASC::Window::Update()
+void LASC::Window::Update()
 {
 	glClearColor(0.1f, 0.1f, 0.1f, 1);
 
@@ -135,8 +135,6 @@ bool LASC::Window::Update()
 
 
 	}
-
-	return m_UserWantsToCancel;
 }
 
 void LASC::Window::ApplyStyles()
@@ -255,14 +253,14 @@ void LASC::Window::ImGuiRender()
 	ImGui::BeginGroup();
 	if (ImGui::Button("Play", m_ButtonSize)) 
 	{
+		m_LauncherOptions.UserClosedApplication = false;
 		glfwSetWindowShouldClose(m_Window, true);
-		m_UserWantsToCancel = false;
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Cancel", m_ButtonSize)) 
 	{
+		m_LauncherOptions.UserClosedApplication = true;
 		glfwSetWindowShouldClose(m_Window, true);
-		m_UserWantsToCancel = true;
 	}
 	ImGui::EndGroup();
 

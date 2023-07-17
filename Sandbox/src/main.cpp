@@ -12,12 +12,16 @@ int main()
 	LASC::Window window;
 	LASC::LauncherOptions options;
 	window.Init();
-	if (window.Update()) // if user clicked Quit
+	window.Update();
+	options = window.Shutdown();
+
+	if (options.UserClosedApplication)
 	{
 		printf("Quitting!");
 		return 0;
 	}
-	options = window.Shutdown();
+
+	// continue on with application
 
 	printf("Fullscreen: %d, Width %d, Height %d", options.Fullscreen, options.Width, options.Height);
 
