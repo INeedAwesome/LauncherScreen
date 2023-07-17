@@ -43,6 +43,7 @@ bool LASC::Window::Init(uint32_t width, uint32_t height)
 	ImGui::CreateContext();
 	m_ImGuiIO = ImGui::GetIO();
 	(void)m_ImGuiIO;
+
 	m_ImGuiIO.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
 	//m_ImGuiIO.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
 	m_ImGuiIO.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;       // Enable Multi-Viewport / Platform Windows
