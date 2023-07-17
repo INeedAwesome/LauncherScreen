@@ -2,11 +2,9 @@
 #include "lascpch.h"
 
 #include "glad/glad.h"
-
 #include "imgui.h"
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
-
 #include "GLFW/glfw3.h"
 #define GLFW_EXPOSE_NATIVE_WIN32
 #include "GLFW/glfw3native.h"
@@ -19,8 +17,7 @@ namespace LASC {
 	{
 	public:
 		Window() 
-			: m_ImGuiIO()
-		{}
+			: m_ImGuiIO() {}
 
 		bool Init(uint32_t width = 550, uint32_t height = 300);
 		LASC::LauncherOptions Shutdown();
@@ -47,6 +44,5 @@ namespace LASC {
 
 		ImVec2 m_ButtonSize = { 130, 35 };
 		float m_Padding = 12;
-
 	};
 }
