@@ -39,7 +39,6 @@ namespace LASC {
 		DWORD Style = WS_POPUP | WS_VISIBLE; //(border and everything)WS_OVERLAPPEDWINDOW | WS_VISIBLE / (no nothing)WS_POPUP | WS_VISIBLE
 		bool m_ShouldClose = false;
 		
-
 		// pass this out of here to the main application
 		LASC::LauncherOptions m_LauncherOptions { };
 
