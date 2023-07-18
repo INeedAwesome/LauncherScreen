@@ -23,6 +23,18 @@ bool LASC::Window::Init(uint32_t width, uint32_t height)
 		return false;
 	}
 
+	auto cursorPosCallback = [](GLFWwindow* window, double xpos, double ypos) 
+	{
+		WindowDragging::Get().cursor_position_callback(window, xpos, ypos);
+	};
+	auto mouseButtonCallback = [](GLFWwindow * window, int button, int action, int mods) 
+	{
+		WindowDragging::Get().mouse_button_callback(window, button, action, mods);
+	};
+
+	glfwSetCursorPosCallback(m_Window, cursorPosCallback);
+	glfwSetMouseButtonCallback(m_Window, mouseButtonCallback);
+
 	glfwMakeContextCurrent(m_Window);
 
 	// glad loader
@@ -107,13 +119,13 @@ void LASC::Window::Update()
 		if (glfwGetKey(m_Window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 			glfwSetWindowShouldClose(m_Window, true);
 
+		WindowDragging::Get().Update(m_Window, m_MainSectionBeginY);
+
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
 		ImGuiRender();
-
-#pragma endregion
 
 		ImGui::End();
 		ImGui::Render();
@@ -188,7 +200,8 @@ void LASC::Window::ImGuiRender()
 	float resolutionTextWidth = ImGui::CalcTextSize(resolutionText.c_str()).x;
 	float comboWidth = 350.0f;
 	ImGui::SetCursorPosX(((m_Width - resolutionTextWidth) / 2) - comboWidth/2);
-	ImGui::SetCursorPosY(graphicsTextHeight + 40.0f);
+	m_MainSectionBeginY = (graphicsTextHeight + 40.0f);
+	ImGui::SetCursorPosY(m_MainSectionBeginY);
 	{
 		ImGui::Text(resolutionText.c_str());
 		ImGui::SameLine();
@@ -263,5 +276,5 @@ void LASC::Window::ImGuiRender()
 		glfwSetWindowShouldClose(m_Window, true);
 	}
 	ImGui::EndGroup();
-
+#pragma endregion
 }

@@ -143,12 +143,14 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Launcher\WindowDragging.h" />
     <ClInclude Include="src\Launcher.h" />
     <ClInclude Include="src\Launcher\Options.h" />
     <ClInclude Include="src\Launcher\Window.h" />
     <ClInclude Include="src\lascpch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Launcher\WindowDragging.cpp" />
     <ClCompile Include="src\Launcher\Window.cpp" />
     <ClCompile Include="src\lascpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

@@ -14,11 +14,13 @@
       <Filter>Launcher</Filter>
     </ClInclude>
     <ClInclude Include="src\lascpch.h" />
+    <ClInclude Include="src\Launcher\WindowDragging.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Launcher\Window.cpp">
       <Filter>Launcher</Filter>
     </ClCompile>
     <ClCompile Include="src\lascpch.cpp" />
+    <ClCompile Include="src\Launcher\WindowDragging.cpp" />
   </ItemGroup>
 </Project>

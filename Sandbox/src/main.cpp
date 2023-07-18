@@ -11,7 +11,7 @@ int main()
 
 	LASC::Window window;
 	LASC::LauncherOptions options;
-	window.Init();
+	window.Init(650, 350);
 	window.Update();
 	options = window.Shutdown();
 
