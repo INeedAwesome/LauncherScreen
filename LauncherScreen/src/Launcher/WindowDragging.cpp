@@ -1,6 +1,8 @@
 #include "lascpch.h"
 #include "WindowDragging.h"
 
+#include <GLFW/glfw3.h>
+
 void WindowDragging::Update(GLFWwindow* window, int imguiMainSection)
 {
 	m_ImguiMainSection = imguiMainSection;

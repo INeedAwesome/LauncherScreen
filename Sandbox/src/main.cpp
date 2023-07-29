@@ -1,11 +1,6 @@
 #include <Launcher.h>
 
-#ifdef SB_DIST
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
-#endif
-#ifndef SB_DIST
-int main()
-#endif // !LS_DIST
+int Main()
 {
 	std::cout << "Hello World\n";
 
@@ -27,3 +22,16 @@ int main()
 
 	return 0;
 }
+
+#ifdef SB_DIST
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
+{
+	Main();
+}
+#endif
+#ifndef SB_DIST
+int main() 
+{
+	Main();
+}
+#endif // !LS_DIST

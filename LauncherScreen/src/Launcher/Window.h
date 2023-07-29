@@ -1,16 +1,22 @@
 #pragma once
 #include "lascpch.h"
 
+#include <imgui.h>
+#include <backends/imgui_impl_glfw.h>
+#include <backends/imgui_impl_opengl3.h>
+
 #include "WindowDragging.h"
 #include "Options.h"
+
+// Forward declare GLFWwindow for this header.
+struct GLFWwindow;
 
 namespace LASC {
 
 	class Window
 	{
 	public:
-		Window() 
-			: m_ImGuiIO() {}
+		Window();
 
 		bool Init(uint32_t width = 550, uint32_t height = 300);
 		LASC::LauncherOptions Shutdown();

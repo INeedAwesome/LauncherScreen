@@ -2,6 +2,22 @@
 
 #include "Window.h"
 
+#include <glad/glad.h>
+
+#include <imgui.h>
+#include <backends/imgui_impl_glfw.h>
+#include <backends/imgui_impl_opengl3.h>
+
+#include <GLFW/glfw3.h>
+#define GLFW_EXPOSE_NATIVE_WIN32
+#include <GLFW/glfw3native.h>
+
+LASC::Window::Window()
+	: m_ImGuiIO()
+{
+
+}
+
 bool LASC::Window::Init(uint32_t width, uint32_t height)
 {
 	m_Width = width;

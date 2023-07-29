@@ -10,9 +10,11 @@ IncludeDir["GLFW"] = "vendor/GLFW/include/"
 IncludeDir["ImGui"] = "vendor/imgui/"
 IncludeDir["Glad"] = "vendor/glad/include"
 
-include "LauncherScreen/vendor/GLFW"
-include "LauncherScreen/vendor/imgui"
-include "LauncherScreen/vendor/glad"
+group("Dependencies")
+    include "LauncherScreen/vendor/GLFW"
+    include "LauncherScreen/vendor/imgui"
+    include "LauncherScreen/vendor/glad"
+group("")
 
 project "LauncherScreen"
     location "LauncherScreen"
@@ -84,9 +86,7 @@ project "Sandbox"
     includedirs 
     {
         "LauncherScreen/src",
-        "LauncherScreen/vendor/GLFW/include",
         "LauncherScreen/vendor/imgui",
-        "LauncherScreen/vendor/glad/include"
     }
 
     links 
